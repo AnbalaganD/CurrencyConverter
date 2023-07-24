@@ -73,21 +73,18 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
         managedObjectContext: NSManagedObjectContext
     ) throws {
         var index = 0
-        let insertBatchRequest = NSBatchInsertRequest(entityName: "CurrencyExchangeEntity") { dict in
-            if index < currencies.count {
-                
-                let currency = currencies[index]
-                let item: [String : Any] = [
-                    "baseCurrency": currency.base,
-                    "currencySymbol": currency.symbol,
-                    "rate": currency.rate,
-                ]
-                dict.setDictionary(item)
-                index += 1
-                return false
-            } else {
-                return true
-            }
+        let insertBatchRequest = NSBatchInsertRequest(entityName: CurrencyExchangeEntity.entityName) { dict in
+            if index >= currencies.count { return true }
+            
+            let currency = currencies[index]
+            let item: [String : Any] = [
+                CurrencyExchangeEntity.Key.baseCurrency: currency.base,
+                CurrencyExchangeEntity.Key.currencySymbol: currency.symbol,
+                CurrencyExchangeEntity.Key.rate: currency.rate,
+            ]
+            dict.setDictionary(item)
+            index += 1
+            return false
         }
         insertBatchRequest.resultType = .statusOnly
         try managedObjectContext.execute(insertBatchRequest)

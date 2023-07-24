@@ -18,7 +18,17 @@ public class CurrencyExchangeEntity: NSManagedObject {
 
 extension CurrencyExchangeEntity {
     public static func fetchRequest() -> NSFetchRequest<CurrencyExchangeEntity> {
-        return NSFetchRequest<CurrencyExchangeEntity>(entityName: "CurrencyExchangeEntity")
+        return NSFetchRequest<CurrencyExchangeEntity>(entityName: entityName)
+    }
+}
+
+extension CurrencyExchangeEntity {
+    static let entityName = "CurrencyExchangeEntity"
+    
+    enum Key {
+        static let baseCurrency = "baseCurrency"
+        static let currencySymbol = "currencySymbol"
+        static let rate = "rate"
     }
 }
 

@@ -11,44 +11,40 @@ struct CurrencyConverterScreen: View {
     @StateObject private var viewModel = CurrencyConverterViewModel()
     
     var body: some View {
-            ScrollView {
-                LazyVStack(pinnedViews: [.sectionHeaders]) {
-                    Section(header: topInputView) {
-                        if viewModel.appState == .loading {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        } else if viewModel.currencies.isEmpty {
-                            Text("The requested data is currently unavailable or not accessible.\n\nMake sure you have stable internet connection")
-                                .foregroundColor(.gray)
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 50)
-                                
-                        } else {
-                            VStack(spacing: 0) {
-                                ForEach(viewModel.currencies, id: \.self) { currency in
-                                    ConvertedCurrencyCell(
-                                        currencySymbol: currency.symbol,
-                                        exchageRate: viewModel.getExchageRate(of: currency.rate),
-                                        amount: viewModel.convertAmount(
-                                            from: viewModel.selectedCurrency?.rate ?? 1.0,
-                                            to: currency.rate,
-                                            multiplyBy: Double(viewModel.amount) ?? 0.0
-                                        )
+        ScrollView {
+            LazyVStack(pinnedViews: [.sectionHeaders]) {
+                Section(header: topInputView) {
+                    if viewModel.appState == .loading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else if viewModel.currencies.isEmpty {
+                        emptyView
+                    } else {
+                        VStack(spacing: 0) {
+                            ForEach(viewModel.currencies, id: \.self) { currency in
+                                ConvertedCurrencyCell(
+                                    currencySymbol: currency.symbol,
+                                    exchageRate: viewModel.getExchageRate(of: currency.rate),
+                                    amount: viewModel.convertAmount(
+                                        from: viewModel.selectedCurrency?.rate ?? 1.0,
+                                        to: currency.rate,
+                                        multiplyBy: Double(viewModel.amount) ?? 0.0
                                     )
-                                }
+                                )
                             }
                         }
                     }
                 }
-                .padding(.horizontal, 16)
             }
-            .onAppear {
-                UIScrollView.appearance().keyboardDismissMode = .interactive
-                Task {
-                    await viewModel.getCurrencyExchange()
-                }
+            .padding(.horizontal, 16)
+        }
+        .onAppear {
+            UIScrollView.appearance().keyboardDismissMode = .interactive
+            Task {
+                await viewModel.getCurrencyExchange()
             }
-            .navigationTitle("Currency Converter")
+        }
+        .navigationTitle("Currency Converter")
     }
     
     private var topInputView: some View {
@@ -72,5 +68,12 @@ struct CurrencyConverterScreen: View {
         )
         .padding(.top, 10)
         .background(Color(UIColor.systemBackground))
+    }
+    
+    private var emptyView: some View {
+        Text("The requested data is currently unavailable or not accessible.\n\nMake sure you have stable internet connection")
+            .foregroundColor(.gray)
+            .multilineTextAlignment(.center)
+            .padding(.top, 50)
     }
 }

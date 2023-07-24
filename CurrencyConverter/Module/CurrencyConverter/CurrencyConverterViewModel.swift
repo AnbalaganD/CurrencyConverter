@@ -8,12 +8,7 @@
 import Foundation
 import Combine
 
-enum AppState {
-    case loading
-    case completed
-}
-
-class CurrencyConverterViewModel: ObservableObject {
+final class CurrencyConverterViewModel: ObservableObject {
     private(set) var backstoreCurrencies = [Currency]()
     @Published var currencies = [Currency]()
     @Published var amount: String = ""

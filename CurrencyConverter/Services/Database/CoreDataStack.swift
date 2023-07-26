@@ -32,7 +32,7 @@ class CoreDataStack {
     ) async throws -> T {
         if #available(iOS 15.0, *) {
             return try await container.performBackgroundTask { managedObjectContext in
-                return try block(managedObjectContext)
+                try block(managedObjectContext)
             }
         } else {
             return try await withCheckedThrowingContinuation { continuation in

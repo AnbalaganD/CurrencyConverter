@@ -43,7 +43,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
                 )
                 
                 //To ensure whether the deletion operation succeeded or not
-                //If not throw correct error
+                //If not, throw correct error to caller
                 if !isDeletedSucceded {
                     throw DatabaseError.saveError(reason: "Perform batch delete operation failed")
                 }

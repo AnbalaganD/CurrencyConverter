@@ -16,7 +16,7 @@ protocol ConnectivityChecker {
 final class ConnectivityCheckerImp: ConnectivityChecker {
     private let _connectivityPublisher: PassthroughSubject<Bool, Never> = PassthroughSubject()
     var connectivityPublisher: AnyPublisher<Bool, Never> {
-        return _connectivityPublisher.eraseToAnyPublisher()
+        _connectivityPublisher.eraseToAnyPublisher()
     }
     
     private(set) var isConnected: Bool = false

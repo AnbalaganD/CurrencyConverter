@@ -11,11 +11,13 @@ protocol BodyConvertible: Encodable {
     func asBody(from encoder: JSONEncoder) throws -> Data
 }
 
-extension Data: BodyConvertible {
+extension BodyConvertible where Self == Data {
     func asBody(from encoder: JSONEncoder) throws -> Data {
         self
     }
 }
+
+extension Data: BodyConvertible { }
 
 extension BodyConvertible {
     func asBody(from encoder: JSONEncoder) throws -> Data {

@@ -11,14 +11,18 @@ protocol URLConvertible {
     func asURL() -> URL?
 }
 
-extension String: URLConvertible {
+extension URLConvertible where Self == String {
     func asURL() -> URL? {
         URL(string: self)
     }
 }
 
-extension URL: URLConvertible {
+extension URLConvertible where Self == URL {
     func asURL() -> URL? {
         self
     }
 }
+
+extension String: URLConvertible { }
+
+extension URL: URLConvertible { }

@@ -11,33 +11,32 @@ struct CurrencyConverterScreen: View {
     @StateObject private var viewModel = CurrencyConverterViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVStack(pinnedViews: [.sectionHeaders]) {
-                Section(header: topInputView) {
-                    if viewModel.appState == .loading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    } else if viewModel.currencies.isEmpty {
-                        emptyView
-                    } else {
-                        VStack(spacing: 0) {
-                            ForEach(viewModel.currencies, id: \.self) { currency in
-                                ConvertedCurrencyCell(
-                                    currencySymbol: currency.symbol,
-                                    exchageRate: viewModel.getExchageRate(of: currency.rate),
-                                    amount: viewModel.convertAmount(
-                                        from: viewModel.selectedCurrency?.rate ?? 1.0,
-                                        to: currency.rate,
-                                        multiplyBy: Double(viewModel.amount) ?? 0.0
-                                    )
+        LazyVStack(pinnedViews: [.sectionHeaders]) {
+            Section(header: topInputView) {
+                if viewModel.appState == .loading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else if viewModel.currencies.isEmpty {
+                    emptyView
+                } else {
+                    VStack(spacing: 0) {
+                        ForEach(viewModel.currencies, id: \.self) { currency in
+                            ConvertedCurrencyCell(
+                                currencySymbol: currency.symbol,
+                                exchageRate: viewModel.getExchageRate(of: currency.rate),
+                                amount: viewModel.convertAmount(
+                                    from: viewModel.selectedCurrency?.rate ?? 1.0,
+                                    to: currency.rate,
+                                    multiplyBy: Double(viewModel.amount) ?? 0.0
                                 )
-                            }
+                            )
                         }
                     }
                 }
             }
-            .padding(.horizontal, 16)
         }
+        .padding(.horizontal, 16)
+        .scrollable()
         .onAppear {
             UIScrollView.appearance().keyboardDismissMode = .interactive
             Task {

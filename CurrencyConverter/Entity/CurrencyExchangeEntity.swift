@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(CurrencyExchangeEntity)
-public class CurrencyExchangeEntity: NSManagedObject {
+public final class CurrencyExchangeEntity: NSManagedObject {
     @NSManaged public var baseCurrency: String
     @NSManaged public var currencySymbol: String
     @NSManaged public var rate: Double

@@ -7,7 +7,7 @@
 
 import CoreData
 
-class CoreDataStack {
+final class CoreDataStack {
     private let container = NSPersistentContainer(name: "CurrencyConverter")
     
     static let shared = CoreDataStack()

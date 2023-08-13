@@ -11,7 +11,7 @@ protocol PreInterceptor {
     func modify(request: URLRequest) async -> URLRequest
 }
 
-class AuthenticationInterceptor: PreInterceptor {
+final class AuthenticationInterceptor: PreInterceptor {
     func modify(request: URLRequest) async -> URLRequest {
         var modifiedURLRequest = request
         modifiedURLRequest.setValue(

@@ -10,15 +10,15 @@ import Foundation
 extension Remote {
     struct Request {
         let url: URLConvertible
-        var parameter: [String: String]
-        var header: [String: String]
+        var parameter: [String: String]?
+        var header: [String: String]?
         var body: BodyConvertible?
         let method: HTTPMethod
         
         init(
             url: URLConvertible,
-            header: [String : String] = [:],
-            parameter: [String : String] = [:],
+            header: [String : String]? = nil,
+            parameter: [String : String]? = nil,
             body: BodyConvertible? = nil,
             method: HTTPMethod = .get
         ) {
@@ -30,11 +30,17 @@ extension Remote {
         }
         
         mutating func addHeader(key: String, value: String) {
-            header[key] = value
+            if header == nil {
+                header = [:]
+            }
+            header?[key] = value
         }
         
         mutating func addParameter(key: String, value: String) {
-            parameter[key] = value
+            if parameter == nil {
+                parameter = [:]
+            }
+            parameter?[key] = value
         }
         
         mutating func setBody(_ body: BodyConvertible) {

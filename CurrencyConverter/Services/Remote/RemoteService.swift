@@ -15,11 +15,20 @@ protocol RemoteService {
 }
 
 final class RemoteServiceImp: RemoteService {
-    
-    private let jsonEncoder = JSONEncoder()
-    private let jsonDecoder = JSONDecoder()
-    
+    private let urlSession: URLSession
+    private let jsonEncoder: JSONEncoder
+    private let jsonDecoder: JSONDecoder
     private var preInterceptors = [PreInterceptor]()
+    
+    init(
+        urlSession: URLSession = .shared,
+        jsonEncoder: JSONEncoder = .init(),
+        jsonDecoder: JSONDecoder = .init()
+    ) {
+        self.urlSession = urlSession
+        self.jsonEncoder = jsonEncoder
+        self.jsonDecoder = jsonDecoder
+    }
     
     func execute<T>(request: Remote.Request) async throws -> T where T : Decodable {
         let url = try getRequestURL(request)
@@ -35,11 +44,11 @@ final class RemoteServiceImp: RemoteService {
             urlRequest.httpBody = bodyData
         }
         
-        urlRequest = await preInterceptors.reduceAsync(urlRequest) { result, interceptor in
+        urlRequest = await preInterceptors.reduce(urlRequest) { result, interceptor in
             await interceptor.modify(request: result)
         }
         
-        let (data, urlResponse) = try await URLSession.shared.data(for: urlRequest)
+        let (data, urlResponse) = try await urlSession.data(for: urlRequest)
         
         if let httpURLResponse = urlResponse as? HTTPURLResponse, !httpURLResponse.isSuccess  {
             throw RemoteError.general(
@@ -68,13 +77,11 @@ final class RemoteServiceImp: RemoteService {
             throw RemoteError.invalidURL
         }
         
-        if request.parameter.count > 0 {
-            urlComponents.queryItems = request.parameter.map {
-                URLQueryItem(
-                    name: $0.key,
-                    value: $0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                )
-            }
+        urlComponents.queryItems = request.parameter?.map {
+            URLQueryItem(
+                name: $0.key,
+                value: $0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            )
         }
         
         guard let constructedURL = urlComponents.url else {

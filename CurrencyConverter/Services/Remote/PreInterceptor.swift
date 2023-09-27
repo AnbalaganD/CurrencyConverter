@@ -8,11 +8,11 @@
 import Foundation
 
 protocol PreInterceptor {
-    func modify(request: URLRequest) async -> URLRequest
+    func modify(request: URLRequest) async throws -> URLRequest
 }
 
 final class AuthenticationInterceptor: PreInterceptor {
-    func modify(request: URLRequest) async -> URLRequest {
+    func modify(request: URLRequest) async throws -> URLRequest {
         var modifiedURLRequest = request
         modifiedURLRequest.setValue(
             "Token \(Config.openExchangeRatesAppId)",

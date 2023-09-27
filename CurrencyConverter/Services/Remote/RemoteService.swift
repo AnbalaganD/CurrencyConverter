@@ -44,8 +44,8 @@ final class RemoteServiceImp: RemoteService {
             urlRequest.httpBody = bodyData
         }
         
-        urlRequest = await preInterceptors.reduce(urlRequest) { result, interceptor in
-            await interceptor.modify(request: result)
+        urlRequest = try await preInterceptors.reduce(urlRequest) { result, interceptor in
+            try await interceptor.modify(request: result)
         }
         
         let (data, urlResponse) = try await urlSession.data(for: urlRequest)
@@ -80,7 +80,7 @@ final class RemoteServiceImp: RemoteService {
         urlComponents.queryItems = request.parameter?.map {
             URLQueryItem(
                 name: $0.key,
-                value: $0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                value: $0.value
             )
         }
         

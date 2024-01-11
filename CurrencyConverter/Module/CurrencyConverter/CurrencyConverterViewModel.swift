@@ -78,6 +78,6 @@ final class CurrencyConverterViewModel: ObservableObject {
         multiplyBy: Double = 1.0
     ) -> Double {
         let exchangeRate = 1 / current
-        return multiplyBy * (exchangeRate * convert)
+        return multiplyBy * exchangeRate * convert
     }
 }

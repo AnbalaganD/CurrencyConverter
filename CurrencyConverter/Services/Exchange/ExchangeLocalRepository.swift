@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol ExchangeLocalRepository {
+protocol ExchangeLocalRepository: Sendable {
     func getCurrencies() async throws -> [Currency]
     func save(currencies: [Currency]) async throws
 }

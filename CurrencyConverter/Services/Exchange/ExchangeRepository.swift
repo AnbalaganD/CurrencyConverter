@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ExchangeRepository {
+protocol ExchangeRepository: Sendable {
     func getCurrencies() async throws -> [Currency]
 }
 

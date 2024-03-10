@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PreInterceptor {
+protocol PreInterceptor: Sendable {
     func modify(request: URLRequest) async throws -> URLRequest
 }
 

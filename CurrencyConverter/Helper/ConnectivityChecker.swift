@@ -8,12 +8,12 @@
 import Network
 import Combine
 
-protocol ConnectivityChecker {
+protocol ConnectivityChecker: Sendable {
     var isConnected: Bool { get }
     var connectivityPublisher: AnyPublisher<Bool, Never> { get }
 }
 
-final class ConnectivityCheckerImp: ConnectivityChecker {
+final class ConnectivityCheckerImp: ConnectivityChecker, @unchecked Sendable {
     private let _connectivityPublisher: PassthroughSubject<Bool, Never> = PassthroughSubject()
     var connectivityPublisher: AnyPublisher<Bool, Never> {
         _connectivityPublisher.eraseToAnyPublisher()

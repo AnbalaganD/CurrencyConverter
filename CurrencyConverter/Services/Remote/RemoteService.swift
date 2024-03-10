@@ -10,11 +10,11 @@ import Foundation
 ///This is act as a namespace
 enum Remote { }
 
-protocol RemoteService {
+protocol RemoteService: Sendable {
     func execute<T: Decodable>(request: Remote.Request) async throws -> T
 }
 
-final class RemoteServiceImp: RemoteService {
+final class RemoteServiceImp: RemoteService, @unchecked Sendable {
     private let urlSession: URLSession
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder

@@ -5,7 +5,7 @@
 //  Created by Anbalagan D on 09/07/23.
 //
 
-protocol ExchangeRemoteRepository {
+protocol ExchangeRemoteRepository: Sendable {
     func getCurrencies() async throws -> [Currency]
 }
 

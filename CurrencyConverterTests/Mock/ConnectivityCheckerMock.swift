@@ -8,7 +8,7 @@
 @testable import CurrencyConverter
 import Combine
 
-final class ConnectivityCheckerMock: ConnectivityChecker {
+final class ConnectivityCheckerMock: ConnectivityChecker, @unchecked Sendable {
     var _connectivityPublisher = PassthroughSubject<Bool, Never>()
     var connectivityPublisher: AnyPublisher<Bool, Never> {
         _connectivityPublisher.eraseToAnyPublisher()

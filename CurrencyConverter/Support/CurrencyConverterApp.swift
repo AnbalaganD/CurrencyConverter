@@ -11,8 +11,15 @@ import SwiftUI
 struct CurrencyConverterApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                CurrencyConverterScreen()
+            if #available(iOS 16.0, *) {
+                NavigationStack {
+                    CurrencyConverterScreen()
+                }
+            } else {
+                NavigationView {
+                    CurrencyConverterScreen()
+                        .navigationViewStyle(.stack)
+                }
             }
         }
     }

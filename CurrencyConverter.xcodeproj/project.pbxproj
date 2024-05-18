@@ -48,6 +48,7 @@
 		54F1761A2A57453E0031F518 /* CurrencyConverterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F176192A57453E0031F518 /* CurrencyConverterScreen.swift */; };
 		54F1761C2A5745750031F518 /* CurrencyConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1761B2A5745750031F518 /* CurrencyConverterViewModel.swift */; };
 		54F176222A5764220031F518 /* CurrencyExchangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F176202A5764220031F518 /* CurrencyExchangeEntity.swift */; };
+		99C1AAA82BF9144C00B5A2A2 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C1AAA72BF9144C00B5A2A2 /* NSManagedObjectContextExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		54F176192A57453E0031F518 /* CurrencyConverterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterScreen.swift; sourceTree = "<group>"; };
 		54F1761B2A5745750031F518 /* CurrencyConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterViewModel.swift; sourceTree = "<group>"; };
 		54F176202A5764220031F518 /* CurrencyExchangeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchangeEntity.swift; sourceTree = "<group>"; };
+		99C1AAA72BF9144C00B5A2A2 /* NSManagedObjectContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				544D042A2A57290E006D94F2 /* HTTPURLResponseExtension.swift */,
 				544D04302A57346B006D94F2 /* ArrayExtension.swift */,
 				54734D852A71202500726D08 /* ViewExtension.swift */,
+				99C1AAA72BF9144C00B5A2A2 /* NSManagedObjectContextExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				54F1761A2A57453E0031F518 /* CurrencyConverterScreen.swift in Sources */,
 				544D04312A57346B006D94F2 /* ArrayExtension.swift in Sources */,
 				54734D842A6EE3C300726D08 /* AppState.swift in Sources */,
+				99C1AAA82BF9144C00B5A2A2 /* NSManagedObjectContextExtension.swift in Sources */,
 				54CFCAB22A56A5E100980FA9 /* EndPoints.swift in Sources */,
 				54CFCA792A568C5C00980FA9 /* CurrencyConverterApp.swift in Sources */,
 				544D04212A571AB7006D94F2 /* URLConvertible.swift in Sources */,

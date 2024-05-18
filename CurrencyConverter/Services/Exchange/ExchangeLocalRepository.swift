@@ -49,7 +49,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
                 }
                 
                 try self.insert(currencies: currencies, managedObjectContext: managedObjectContext)
-                try self.coredataStack.save(managedObjectContext: managedObjectContext)
+                try managedObjectContext.saveIfNecessary()
             } catch {
                 throw DatabaseError.saveError(reason: error.localizedDescription)
             }

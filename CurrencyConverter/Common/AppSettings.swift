@@ -8,7 +8,7 @@
 import Foundation
 
 enum AppSettings {
-    private static let userDefaults = UserDefaults.standard
+    nonisolated(unsafe) private static let userDefaults = UserDefaults.standard
     
     static var lastFetchedTime: TimeInterval {
         get { userDefaults.double(forKey: "lastFetchedTime") }

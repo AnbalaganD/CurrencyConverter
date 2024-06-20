@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class CurrencyConverterViewModel: ObservableObject {
+final class CurrencyConverterViewModel: ObservableObject, @unchecked Sendable {
     private(set) var backstoreCurrencies = [Currency]()
     @Published var currencies = [Currency]()
     @Published var amount: String = ""

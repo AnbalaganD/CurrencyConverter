@@ -37,12 +37,8 @@ struct CurrencyConverterScreen: View {
         }
         .padding(.horizontal, 16)
         .scrollable()
-        .onAppear {
-            UIScrollView.appearance().keyboardDismissMode = .interactive
-            Task {
-                await viewModel.getCurrencyExchange()
-            }
-        }
+        .task { await viewModel.getCurrencyExchange() }
+        .onAppear { UIScrollView.appearance().keyboardDismissMode = .interactive }
         .navigationTitle("Currency Converter")
     }
     

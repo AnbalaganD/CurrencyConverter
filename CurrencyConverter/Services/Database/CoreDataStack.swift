@@ -30,7 +30,7 @@ final class CoreDataStack: Sendable {
     func performBackgroundTask<T>(
         _ block: @escaping (NSManagedObjectContext) throws -> T
     ) async throws -> T {
-        return try await container.performBackgroundTask { managedObjectContext in
+        try await container.performBackgroundTask { managedObjectContext in
             try block(managedObjectContext)
         }
     }

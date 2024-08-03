@@ -17,7 +17,7 @@ final class ExchangeRepositoryImp: ExchangeRepository {
     private let cacheExpirationDurationInSecond: Int
     private let lastFetchedTime: TimeInterval
     private let connectivityChecker: ConnectivityChecker
-    
+
     init(
         remoteRepository: ExchangeRemoteRepository,
         localRepository: ExchangeLocalRepository,
@@ -31,19 +31,19 @@ final class ExchangeRepositoryImp: ExchangeRepository {
         self.lastFetchedTime = lastFetchedTime
         self.connectivityChecker = connectivityChecker
     }
-    
+
     func getCurrencies() async throws -> [Currency] {
         if !connectivityChecker.isConnected {
             return try await localRepository.getCurrencies()
         }
-        
+
         let currentTimeInterval = Date().timeIntervalSinceReferenceDate
 
         if lastFetchedTime != 0.0 &&
             lastFetchedTime > currentTimeInterval - Double(cacheExpirationDurationInSecond) {
             return try await localRepository.getCurrencies()
         }
-        
+
         let result = try await remoteRepository.getCurrencies()
         let currencies = result.sorted { $0.symbol < $1.symbol }
         AppSettings.lastFetchedTime = currentTimeInterval

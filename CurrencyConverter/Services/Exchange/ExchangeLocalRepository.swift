@@ -5,8 +5,8 @@
 //  Created by Anbalagan D on 09/07/23.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 protocol ExchangeLocalRepository: Sendable {
     func getCurrencies() async throws -> [Currency]
@@ -24,7 +24,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
             return try await coredataStack.performBackgroundTask { managedObjectContext in
                 let fetchRequest = CurrencyExchangeEntity.fetchRequest()
                 fetchRequest.sortDescriptors = [
-                    NSSortDescriptor(keyPath: \CurrencyExchangeEntity.currencySymbol, ascending: true)
+                    NSSortDescriptor(keyPath: \CurrencyExchangeEntity.currencySymbol, ascending: true),
                 ]
                 let result = try managedObjectContext.fetch(fetchRequest)
                 return result.map { $0.toDomain() }
@@ -35,15 +35,15 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
     }
     
     func save(currencies: [Currency]) async throws {
-        try await coredataStack.performBackgroundTask {[weak self] managedObjectContext in
+        try await coredataStack.performBackgroundTask { [weak self] managedObjectContext in
             guard let self = self else { return }
             do {
                 let isDeletedSucceded = try self.deleteCurrencies(
                     managedObjectContext: managedObjectContext
                 )
                 
-                //To ensure whether the deletion operation succeeded or not
-                //If not, throw correct error to caller
+                // To ensure whether the deletion operation succeeded or not
+                // If not, throw correct error to caller
                 if !isDeletedSucceded {
                     throw DatabaseError.saveError(reason: "Perform batch delete operation failed")
                 }
@@ -63,7 +63,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
         )
         deleteRequest.resultType = .resultTypeStatusOnly
         let result = try managedObjectContext.execute(deleteRequest)
-        let batchDeleteResult =  result as! NSBatchDeleteResult
+        let batchDeleteResult = result as! NSBatchDeleteResult
         
         return batchDeleteResult.result as? Bool ?? false
     }
@@ -77,7 +77,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
             if index >= currencies.count { return true }
             
             let currency = currencies[index]
-            let item: [String : Any] = [
+            let item: [String: Any] = [
                 CurrencyExchangeEntity.Key.baseCurrency: currency.base,
                 CurrencyExchangeEntity.Key.currencySymbol: currency.symbol,
                 CurrencyExchangeEntity.Key.rate: currency.rate,

@@ -14,7 +14,7 @@ final class ExchangeRemoteRepositoryImp: ExchangeRemoteRepository {
     init(remoteService: RemoteService = Remote.sharedRemoteService) {
         self.remoteService = remoteService
     }
-    
+
     func getCurrencies() async throws -> [Currency] {
         let result: CurrencyExchangeDTO = try await remoteService.execute(
             request: .init(

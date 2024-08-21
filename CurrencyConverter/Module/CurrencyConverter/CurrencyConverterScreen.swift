@@ -23,7 +23,7 @@ struct CurrencyConverterScreen: View {
                         ForEach(viewModel.currencies, id: \.self) { currency in
                             ConvertedCurrencyCell(
                                 currencySymbol: currency.symbol,
-                                exchageRate: viewModel.getExchageRate(of: currency.rate),
+                                exchangeRate: viewModel.getExchangeRate(of: currency.rate),
                                 amount: viewModel.convertAmount(
                                     from: viewModel.selectedCurrency?.rate ?? 1.0,
                                     to: currency.rate,

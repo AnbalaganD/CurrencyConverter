@@ -24,12 +24,12 @@ final class CurrencyConverterViewModelTests: XCTestCase {
     }
     
     func testCurrencyExchageRate() {
-        let exchangeRate = viewModel.getExchageRate(of: 2.0)
+        let exchangeRate = viewModel.getExchangeRate(of: 2.0)
         XCTAssertTrue(exchangeRate == 0.5, "Expected value is 0.5")
     }
     
     func testCurrencyExchageRateDivideByZero() {
-        let exchangeRate = viewModel.getExchageRate(of: 0.0)
+        let exchangeRate = viewModel.getExchangeRate(of: 0.0)
         XCTAssertFalse(exchangeRate.isNaN, "Expected value is NAN")
     }
     

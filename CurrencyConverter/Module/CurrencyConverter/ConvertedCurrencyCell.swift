@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConvertedCurrencyCell: View {
     let currencySymbol: String
-    let exchageRate: Double
+    let exchangeRate: Double
     let amount: Double
     
     var body: some View {
@@ -28,7 +28,7 @@ struct ConvertedCurrencyCell: View {
                         .foregroundColor(.gray)
                         .font(.system(size: 13))
                     +
-                    Text("\(exchageRate)")
+                    Text("\(exchangeRate)")
                         .foregroundColor(.primary)
                         .font(.system(size: 13, weight: .semibold))
                 }

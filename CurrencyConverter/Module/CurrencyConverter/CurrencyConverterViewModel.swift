@@ -68,7 +68,7 @@ final class CurrencyConverterViewModel: ObservableObject, @unchecked Sendable {
         }
     }
     
-    func getExchageRate(of currencyRate: Double) -> Double {
+    func getExchangeRate(of currencyRate: Double) -> Double {
         return 1 / currencyRate
     }
     

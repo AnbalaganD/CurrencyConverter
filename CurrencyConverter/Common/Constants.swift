@@ -10,5 +10,5 @@ import Foundation
 struct Constants {
     static let appName = "Currency Converter"
     
-    static let thirtyMinitue = 16_800
+    static let thirtyMinitue = 1_800
 }

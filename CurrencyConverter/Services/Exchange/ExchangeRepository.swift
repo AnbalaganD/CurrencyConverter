@@ -12,18 +12,18 @@ protocol ExchangeRepository: Sendable {
 }
 
 final class ExchangeRepositoryImp: ExchangeRepository {
-    private let remoteRepository: ExchangeRemoteRepository
-    private let localRepository: ExchangeLocalRepository
+    private let remoteRepository: any ExchangeRemoteRepository
+    private let localRepository: any ExchangeLocalRepository
     private let cacheExpirationDurationInSecond: Int
     private let lastFetchedTime: TimeInterval
-    private let connectivityChecker: ConnectivityChecker
+    private let connectivityChecker: any ConnectivityChecker
 
     init(
-        remoteRepository: ExchangeRemoteRepository,
-        localRepository: ExchangeLocalRepository,
+        remoteRepository: any ExchangeRemoteRepository,
+        localRepository: any ExchangeLocalRepository,
         cacheExpirationDurationInSecond: Int,
         lastFetchedTime: TimeInterval = AppSettings.lastFetchedTime,
-        connectivityChecker: ConnectivityChecker = ConnectivityCheckerImp.shared
+        connectivityChecker: any ConnectivityChecker = ConnectivityCheckerImp.shared
     ) {
         self.remoteRepository = remoteRepository
         self.localRepository = localRepository

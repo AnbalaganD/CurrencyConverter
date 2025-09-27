@@ -15,11 +15,11 @@ final class CurrencyConverterViewModel: ObservableObject, @unchecked Sendable {
     @Published var selectedCurrency: Currency?
     @Published var appState: AppState = .loading
     
-    private let exchangeRepository: ExchangeRepository
+    private let exchangeRepository: any ExchangeRepository
     private var cancellable: AnyCancellable?
     
     init(
-        exchangeRepository: ExchangeRepository = ExchangeRepositoryImp(
+        exchangeRepository: any ExchangeRepository = ExchangeRepositoryImp(
             remoteRepository: ExchangeRemoteRepositoryImp(),
             localRepository: ExchangeLocalRepositoryImp(),
             cacheExpirationDurationInSecond: Constants.thirtyMinitue

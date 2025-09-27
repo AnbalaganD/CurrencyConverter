@@ -10,8 +10,8 @@ protocol ExchangeRemoteRepository: Sendable {
 }
 
 final class ExchangeRemoteRepositoryImp: ExchangeRemoteRepository {
-    private let remoteService: RemoteService
-    init(remoteService: RemoteService = Remote.sharedRemoteService) {
+    private let remoteService: any RemoteService
+    init(remoteService: any RemoteService = Remote.sharedRemoteService) {
         self.remoteService = remoteService
     }
 

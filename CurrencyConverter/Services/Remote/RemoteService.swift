@@ -18,7 +18,7 @@ final class RemoteServiceImp: RemoteService, @unchecked Sendable {
     private let urlSession: URLSession
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder
-    private var preInterceptors = [PreInterceptor]()
+    private var preInterceptors = [any PreInterceptor]()
     
     init(
         urlSession: URLSession = .shared,
@@ -64,7 +64,7 @@ final class RemoteServiceImp: RemoteService, @unchecked Sendable {
         }
     }
     
-    func setPreInterceptor(_ interceptor: PreInterceptor) {
+    func setPreInterceptor(_ interceptor: any PreInterceptor) {
         preInterceptors.append(interceptor)
     }
     
@@ -93,7 +93,7 @@ final class RemoteServiceImp: RemoteService, @unchecked Sendable {
 }
 
 extension Remote {
-    static let sharedRemoteService: RemoteService = {
+    static let sharedRemoteService: any RemoteService = {
         let remoteService = RemoteServiceImp()
         remoteService.setPreInterceptor(AuthenticationInterceptor())
         return remoteService

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreData
+public import CoreData
 
 @objc(CurrencyExchangeEntity)
 public final class CurrencyExchangeEntity: NSManagedObject {

@@ -57,7 +57,7 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
     }
     
     private func deleteCurrencies(managedObjectContext: NSManagedObjectContext) throws -> Bool {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CurrencyExchangeEntity.fetchRequest()
+        let fetchRequest: NSFetchRequest<any NSFetchRequestResult> = CurrencyExchangeEntity.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(
             fetchRequest: fetchRequest
         )

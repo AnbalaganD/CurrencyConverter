@@ -5,21 +5,15 @@
 //  Created by Anbalagan D on 10/07/23.
 //
 
-import XCTest
+import Testing
+import CoreData
 @testable import CurrencyConverter
 
-final class ExchangeLocalRepositoryTests: XCTestCase {
-    private var localRepository: ExchangeLocalRepository!
-    private var coredataStack: CoreDataStack!
-    
-    override func setUpWithError() throws {
-        coredataStack = CoreDataStack(inMemory: true)
-        localRepository = ExchangeLocalRepositoryImp(
-            coredataStack: coredataStack
-        )
-    }
-    
-    func testIsDataSaveCorrectly() async throws {
+struct ExchangeLocalRepositoryTests {
+    @Test
+    func isDataSaveCorrectly() async throws {
+        let coredataStack = CoreDataStack(inMemory: true)
+        let localRepository = ExchangeLocalRepositoryImp(coredataStack: coredataStack)
         let dummyCurrency = Currency.getDummyCurrency()
         try await localRepository.save(currencies: dummyCurrency)
         let result = try await coredataStack.performBackgroundTask { managedObjectContext in
@@ -28,7 +22,7 @@ final class ExchangeLocalRepositoryTests: XCTestCase {
             return result.map { $0.toDomain() }
         }
         
-        XCTAssertTrue(result.count == dummyCurrency.count, "Error while saving data")
+        #expect(result.count == dummyCurrency.count, "Error while saving data")
         
         var containsCorrectData = true
         for entity in result {
@@ -38,16 +32,19 @@ final class ExchangeLocalRepositoryTests: XCTestCase {
             }
         }
         
-        XCTAssertTrue(containsCorrectData, "Error while saving data")
+        #expect(containsCorrectData, "Error while saving data")
     }
     
-    func testFetchDataCorrectly() async throws {
+    @Test
+    func fetchDataCorrectly() async throws {
+        let coredataStack = CoreDataStack(inMemory: true)
+        let localRepository = ExchangeLocalRepositoryImp(coredataStack: coredataStack)
         let dummyCurrency = Currency.getDummyCurrency()
         try await localRepository.save(currencies: dummyCurrency)
         
         let result = try await localRepository.getCurrencies()
         
-        XCTAssertTrue(result.count == dummyCurrency.count, "Error while fetching data")
+        #expect(result.count == dummyCurrency.count, "Error while fetching data")
         
         var containsCorrectData = true
         for entity in result {
@@ -57,11 +54,6 @@ final class ExchangeLocalRepositoryTests: XCTestCase {
             }
         }
         
-        XCTAssertTrue(containsCorrectData, "Error while fetching data")
-    }
-    
-    override func tearDownWithError() throws {
-        localRepository = nil
-        coredataStack = nil
+        #expect(containsCorrectData, "Error while fetching data")
     }
 }

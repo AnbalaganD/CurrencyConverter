@@ -11,17 +11,17 @@ enum AppSettings {
     nonisolated(unsafe) private static let userDefaults = UserDefaults.standard
     
     static var lastFetchedTime: TimeInterval {
-        get { userDefaults.double(forKey: "lastFetchedTime") }
-        set { userDefaults.set(newValue, forKey: "lastFetchedTime") }
+        get { unsafe userDefaults.double(forKey: "lastFetchedTime") }
+        set { unsafe userDefaults.set(newValue, forKey: "lastFetchedTime") }
     }
     
     static var userLastSelectionCurrency: String? {
-        get { userDefaults.string(forKey: "userLastSelectionCurrency") }
-        set { userDefaults.set(newValue, forKey: "userLastSelectionCurrency") }
+        get { unsafe userDefaults.string(forKey: "userLastSelectionCurrency") }
+        set { unsafe userDefaults.set(newValue, forKey: "userLastSelectionCurrency") }
     }
     
     static func synchronize() {
-        userDefaults.synchronize()
+        unsafe userDefaults.synchronize()
     }
     
     static func clear() {

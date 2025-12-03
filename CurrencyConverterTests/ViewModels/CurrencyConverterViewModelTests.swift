@@ -23,17 +23,17 @@ final class CurrencyConverterViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.backstoreCurrencies.count == 169, "Could not retrieve the Data correctly")
     }
     
-    func testCurrencyExchageRate() {
+    func testCurrencyExchangeRate() {
         let exchangeRate = viewModel.getExchangeRate(of: 2.0)
         XCTAssertTrue(exchangeRate == 0.5, "Expected value is 0.5")
     }
     
-    func testCurrencyExchageRateDivideByZero() {
+    func testCurrencyExchangeRateDivideByZero() {
         let exchangeRate = viewModel.getExchangeRate(of: 0.0)
         XCTAssertFalse(exchangeRate.isNaN, "Expected value is NAN")
     }
     
-    func testCovertAmountCorrectly() {
+    func testConvertAmountCorrectly() {
         let result = viewModel.convertAmount(from: 2.0, to: 4.0, multiplyBy: 6.0)
         XCTAssertTrue(result == 12.0)
     }

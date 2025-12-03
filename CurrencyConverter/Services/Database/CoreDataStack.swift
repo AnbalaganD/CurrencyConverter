@@ -7,7 +7,7 @@
 
 import CoreData
 
-final class CoreDataStack: Sendable {
+actor CoreDataStack: Sendable {
     private let container = NSPersistentContainer(name: "CurrencyConverter")
     
     static let shared = CoreDataStack()
@@ -19,6 +19,7 @@ final class CoreDataStack: Sendable {
         loadPersistentStores()
     }
     
+    nonisolated
     private func loadPersistentStores() {
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
@@ -27,8 +28,9 @@ final class CoreDataStack: Sendable {
         }
     }
     
+    nonisolated
     func performBackgroundTask<T>(
-        _ block: @Sendable @escaping (NSManagedObjectContext) throws -> T
+        _ block: @escaping @Sendable (NSManagedObjectContext) throws -> T
     ) async throws -> T {
         try await container.performBackgroundTask { managedObjectContext in
             try block(managedObjectContext)

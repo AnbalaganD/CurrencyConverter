@@ -9,8 +9,10 @@ import CoreData
 
 extension NSManagedObjectContext {
     func saveIfNecessary() throws {
-        if !hasChanges { return }
-        
-        try save()
+        try performAndWait {
+            if !hasChanges { return }
+            
+            try save()
+        }
     }
 }

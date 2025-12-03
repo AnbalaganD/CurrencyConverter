@@ -34,9 +34,12 @@ final class ConnectivityCheckerImp: ConnectivityChecker, @unchecked Sendable {
         monitor.pathUpdateHandler = {[weak self] path in
             guard let self else { return }
             let connected = path.status == .satisfied
-            if isConnected != connected {
-                isConnected = connected
-                _connectivityPublisher.send(connected)
+            DispatchQueue.main.async { [weak self] in
+                guard let self else {return }
+                if isConnected != connected {
+                    isConnected = connected
+                    _connectivityPublisher.send(connected)
+                }
             }
         }
         monitor.start(queue: monitorQueue)

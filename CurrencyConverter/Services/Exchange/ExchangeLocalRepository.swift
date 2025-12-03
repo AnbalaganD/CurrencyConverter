@@ -13,6 +13,7 @@ protocol ExchangeLocalRepository: Sendable {
     func save(currencies: [Currency]) async throws
 }
 
+nonisolated
 final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
     private let coredataStack: CoreDataStack
     init(coredataStack: CoreDataStack = .shared) {
@@ -38,18 +39,18 @@ final class ExchangeLocalRepositoryImp: ExchangeLocalRepository {
         try await coredataStack.performBackgroundTask { [weak self] managedObjectContext in
             guard let self = self else { return }
             do {
-                let isDeletedSucceded = try self.deleteCurrencies(
+                let isDeleted = try deleteCurrencies(
                     managedObjectContext: managedObjectContext
                 )
                 
                 // To ensure whether the deletion operation succeeded or not
                 // If not, throw correct error to caller
-                if !isDeletedSucceded {
+                if !isDeleted {
                     throw DatabaseError.saveError(reason: "Perform batch delete operation failed")
                 }
                 
-                try self.insert(currencies: currencies, managedObjectContext: managedObjectContext)
-                try managedObjectContext.saveIfNecessary()
+                try insert(currencies: currencies, managedObjectContext: managedObjectContext)
+                Task { try await managedObjectContext.saveIfNecessary() }
             } catch {
                 throw DatabaseError.saveError(reason: error.localizedDescription)
             }

@@ -10,5 +10,5 @@ import Foundation
 enum DatabaseError: Error {
     case emptyLocalData
     case saveError(reason: String)
-    case retriveError(reason: String)
+    case retrieveError(reason: String)
 }

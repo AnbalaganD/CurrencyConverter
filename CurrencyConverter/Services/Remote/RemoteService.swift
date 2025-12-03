@@ -7,7 +7,7 @@
 
 import Foundation
 
-///This is act as a namespace
+///This acts as a namespace
 enum Remote { }
 
 protocol RemoteService: Sendable {

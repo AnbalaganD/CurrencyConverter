@@ -22,14 +22,14 @@ final class CurrencyConverterViewModel: ObservableObject, @unchecked Sendable {
         exchangeRepository: any ExchangeRepository = ExchangeRepositoryImp(
             remoteRepository: ExchangeRemoteRepositoryImp(),
             localRepository: ExchangeLocalRepositoryImp(),
-            cacheExpirationDurationInSecond: Constants.thirtyMinitue
+            cacheExpirationDurationInSecond: Constants.thirtyMinute
         )
     ) {
         self.exchangeRepository = exchangeRepository
-        addObsevers()
+        addObservers()
     }
     
-    private func addObsevers() {
+    private func addObservers() {
         cancellable = $selectedCurrency
             .compactMap { $0 }
             .sink {[weak self] currency in
@@ -51,8 +51,8 @@ final class CurrencyConverterViewModel: ObservableObject, @unchecked Sendable {
             let result = try await exchangeRepository.getCurrencies()
             self.backstoreCurrencies = result
             
-            if let userPreferedCurrencySymbol = AppSettings.userLastSelectionCurrency,
-               let currency = self.backstoreCurrencies.first(where: { $0.symbol == userPreferedCurrencySymbol }) {
+            if let userPreferredCurrencySymbol = AppSettings.userLastSelectionCurrency,
+               let currency = self.backstoreCurrencies.first(where: { $0.symbol == userPreferredCurrencySymbol }) {
                 
                 selectedCurrency = currency
                 self.updateCurrencies(except: currency)

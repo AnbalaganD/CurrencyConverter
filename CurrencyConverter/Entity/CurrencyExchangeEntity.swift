@@ -17,14 +17,17 @@ public final class CurrencyExchangeEntity: NSManagedObject {
 }
 
 extension CurrencyExchangeEntity {
+    nonisolated
     public static func fetchRequest() -> NSFetchRequest<CurrencyExchangeEntity> {
         NSFetchRequest<CurrencyExchangeEntity>(entityName: entityName)
     }
 }
 
 extension CurrencyExchangeEntity {
+    nonisolated
     static let entityName = "CurrencyExchangeEntity"
     
+    nonisolated
     enum Key {
         static let baseCurrency = "baseCurrency"
         static let currencySymbol = "currencySymbol"
@@ -33,6 +36,7 @@ extension CurrencyExchangeEntity {
 }
 
 extension CurrencyExchangeEntity: DomainConvertible {
+    nonisolated
     func toDomain() -> Currency {
         .init(symbol: currencySymbol, rate: rate, base: baseCurrency)
     }

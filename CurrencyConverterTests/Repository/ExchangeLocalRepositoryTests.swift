@@ -30,15 +30,15 @@ final class ExchangeLocalRepositoryTests: XCTestCase {
         
         XCTAssertTrue(result.count == dummyCurrency.count, "Error while saving data")
         
-        var isContaintCorrectData = true
+        var containsCorrectData = true
         for entity in result {
             if !dummyCurrency.contains(where: { $0.symbol == entity.symbol }) {
-                isContaintCorrectData = false
+                containsCorrectData = false
                 break
             }
         }
         
-        XCTAssertTrue(isContaintCorrectData, "Error while saving data")
+        XCTAssertTrue(containsCorrectData, "Error while saving data")
     }
     
     func testFetchDataCorrectly() async throws {
@@ -49,15 +49,15 @@ final class ExchangeLocalRepositoryTests: XCTestCase {
         
         XCTAssertTrue(result.count == dummyCurrency.count, "Error while fetching data")
         
-        var isContaintCorrectData = true
+        var containsCorrectData = true
         for entity in result {
             if !dummyCurrency.contains(where: { $0.symbol == entity.symbol }) {
-                isContaintCorrectData = false
+                containsCorrectData = false
                 break
             }
         }
         
-        XCTAssertTrue(isContaintCorrectData, "Error while fetching data")
+        XCTAssertTrue(containsCorrectData, "Error while fetching data")
     }
     
     override func tearDownWithError() throws {

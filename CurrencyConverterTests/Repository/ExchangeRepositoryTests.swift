@@ -23,7 +23,7 @@ final class ExchangeRepositoryTests: XCTestCase {
         exchangeRepository = ExchangeRepositoryImp(
             remoteRepository: ExchangeRemoteRepositoryMock(),
             localRepository: localRepository,
-            cacheExpirationDurationInSecond: Constants.thirtyMinitue,
+            cacheExpirationDurationInSecond: Constants.thirtyMinute,
             lastFetchedTime: Date().timeIntervalSinceReferenceDate,
             connectivityChecker: ConnectivityCheckerMock(isConnected: false)
         )
@@ -36,15 +36,15 @@ final class ExchangeRepositoryTests: XCTestCase {
         let result = try await exchangeRepository.getCurrencies()
         XCTAssertTrue(result.count == dummyCurrency.count, "Error while saving data")
         
-        var isContaintCorrectData = true
+        var containsCorrectData = true
         for entity in result {
             if !dummyCurrency.contains(where: { $0.symbol == entity.symbol }) {
-                isContaintCorrectData = false
+                containsCorrectData = false
                 break
             }
         }
         
-        XCTAssertTrue(isContaintCorrectData, "Error while saving data")
+        XCTAssertTrue(containsCorrectData, "Error while saving data")
         
     }
 

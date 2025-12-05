@@ -18,7 +18,7 @@ A robust iOS application designed to provide real-time currency conversion with 
 - **Local Storage**: Core Data
 - **Architecture**: MVVM (Model-View-ViewModel)
 - **Networking**: URLSession with custom `RemoteService`
-- **Testing**: XCTest (Unit Tests)
+- **Testing**: Swift Testing Framework (Unit Tests)
 
 ## Setup Instructions
 
